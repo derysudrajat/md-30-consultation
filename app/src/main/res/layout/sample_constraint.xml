@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#4D000000"
+            android:drawableStart="@drawable/ic_photo_library"
+            android:drawableLeft="@drawable/ic_photo_library"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/white"
+            android:elevation="2dp"
+            android:padding="8dp"
+            android:text="6 Photos"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/image_phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/image_phone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+        <TextView
+            android:id="@+id/text_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="10000"
+            android:textColor="@android:color/black"
+            android:textSize="32sp"
+            app:layout_constraintStart_toStartOf="@+id/text_stock"
+            app:layout_constraintTop_toBottomOf="@+id/image_phone" />
+
+        <TextView
+            android:id="@+id/text_stock"
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Stock"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/text_description"
+            app:layout_constraintTop_toBottomOf="@+id/text_price" />
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:lineSpacingMultiplier="1"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas fringilla phasellus faucibus scelerisque eleifend donec pretium. Arcu dictum varius duis at consectetur. Viverra vitae congue eu consequat ac felis donec et. At consectetur lorem donec massa sapien. In mollis nunc sed id semper risus in hendrerit. Pellentesque dignissim enim sit amet venenatis urna. Ultricies mi eget mauris pharetra et ultrices neque. Gravida cum sociis natoque penatibus et magnis dis parturient montes. Amet nisl purus in mollis nunc. Elit eget gravida cum sociis natoque. Aliquam ultrices sagittis orci a scelerisque purus. Ridiculus mus mauris vitae ultricies leo integer. Porttitor leo a diam sollicitudin tempor id eu nisl. Pretium viverra suspendisse potenti nullam. Natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Ornare massa eget egestas purus. Arcu bibendum at varius vel. Ut tristique et egestas quis ipsum suspendisse ultrices gravida."
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_stock" />
+
+
+        <include
+            android:id="@+id/include_specifications"
+            layout="@layout/item_avatar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_description" />
+
+        <include
+            android:id="@+id/include_seller"
+            layout="@layout/item_avatar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_specifications" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
