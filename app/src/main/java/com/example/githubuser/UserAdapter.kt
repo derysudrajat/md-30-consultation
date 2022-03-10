@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.githubuser.databinding.ItemAvatarBinding
 
 class UserAdapter(
-    private val listUser: List<user>
+    private val listUser: List<User>
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)

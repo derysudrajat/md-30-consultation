@@ -1,4 +1,4 @@
-package com.example.githubuser
+package com.example.githubuser.ui.home
 
 import android.content.Context
 import android.content.Intent
@@ -9,15 +9,21 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate.*
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubuser.MovieViewModel
+import com.example.githubuser.R
+import com.example.githubuser.User
 import com.example.githubuser.databinding.ActivityMainBinding
+import com.example.githubuser.ui.detail.UserDetail
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val movieViewModel: MovieViewModel by viewModels()
-    private val list = ArrayList<user>()
+    private val mainViewModel: MainViewModel by viewModels()
     var isCurrentThemeDarkMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,44 +33,16 @@ class MainActivity : AppCompatActivity() {
         setAppTheme(isCurrentThemeDarkMode)
         setContentView(binding.root)
         movieViewModel.getNowPlayingMovie()
-
-        list.addAll(listUser)
-        showRecyclerList()
+        mainViewModel.getDataUserByUsername("dery")
+        mainViewModel.user.observe(this) { showRecyclerList(it) }
     }
 
     private fun setAppTheme(isDarkMode: Boolean) {
         setDefaultNightMode(if (isDarkMode) MODE_NIGHT_NO else MODE_NIGHT_YES)
     }
 
-    private val listUser: ArrayList<user>
-        get() {
-            val dataName = resources.getStringArray(R.array.name)
-            val dataUserName = resources.getStringArray(R.array.username)
-            val dataPhoto = resources.obtainTypedArray(R.array.avatar)
-            val dataFollowers = resources.getStringArray(R.array.followers)
-            val dataFollowing = resources.getStringArray(R.array.following)
-            val dataCompany = resources.getStringArray(R.array.company)
-            val dataLocation = resources.getStringArray(R.array.location)
-            val dataRepository = resources.getStringArray(R.array.repository)
-            val listUser = ArrayList<user>()
-            for (i in dataName.indices) {
-                val user = user(
-                    name = dataName[i],
-                    username = dataUserName[i],
-                    avatar = dataPhoto.getResourceId(i, -1),
-                    followers = dataFollowers[i],
-                    following = dataFollowing[i],
-                    company = dataCompany[i],
-                    location = dataLocation[i],
-                    repository = dataRepository[i]
-                )
-                listUser.add(user)
-            }
-            return listUser
-        }
-
-    private fun showRecyclerList() {
-        val listUserAdapter = ListUserAdapter(list)
+    private fun showRecyclerList(listUser: List<User>) {
+        val listUserAdapter = ListUserAdapter(listUser)
         listUserAdapter.setOnItemClickCallback(onItemCallBack)
 
         binding.rvAvatar.apply {
@@ -79,11 +57,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+
+        val myActionMenuItem = menu.findItem(R.id.action_search)
+        val searchView: SearchView = myActionMenuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { mainViewModel.getDataUserByUsername(it) }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return true
+            }
+        })
         return super.onCreateOptionsMenu(menu)
     }
 
     private val onItemCallBack = object : ListUserAdapter.OnItemClickCallback {
-        override fun onItemClicked(data: user) {
+        override fun onItemClicked(data: User) {
             startActivity(
                 Intent(this@MainActivity, UserDetail::class.java).apply {
                     putExtra(UserDetail.EXTRA_user, data)
