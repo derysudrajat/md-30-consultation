@@ -25,7 +25,7 @@ class UserDetail : AppCompatActivity() {
         binding = UserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        intent.getParcelableExtra<User>(EXTRA_user)?.let { user ->
+        intent.extras?.getParcelable<User>(EXTRA_user)?.let { user ->
             detailViewModel.getDetailUser(user.username)
         }
 

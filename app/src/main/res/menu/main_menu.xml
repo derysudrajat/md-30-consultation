@@ -14,4 +14,10 @@
         android:icon="@drawable/ic_sun"
         android:title="Ganti Tema"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_following_followers"
+        android:icon="@drawable/ic_people"
+        android:title="Ganti Tema"
+        app:showAsAction="always" />
 </menu>

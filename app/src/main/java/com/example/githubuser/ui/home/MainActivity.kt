@@ -17,6 +17,7 @@ import com.example.githubuser.R
 import com.example.githubuser.User
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.ui.detail.UserDetail
+import com.example.githubuser.ui.tabviewpagger.TabWithViewPagerActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -76,19 +77,36 @@ class MainActivity : AppCompatActivity() {
 
     private val onItemCallBack = object : ListUserAdapter.OnItemClickCallback {
         override fun onItemClicked(data: User) {
-            startActivity(
-                Intent(this@MainActivity, UserDetail::class.java).apply {
-                    putExtra(UserDetail.EXTRA_user, data)
-                }
-            )
+            toDetailActivity(data)
         }
     }
 
+    private fun toFollowingFollowersActivity(username: String) {
+        startActivity(
+            Intent(this, TabWithViewPagerActivity::class.java).apply {
+                putExtra("username", username)
+            }
+        )
+    }
+
+    private fun toDetailActivity(data: User) {
+        startActivity(
+            Intent(this@MainActivity, UserDetail::class.java).apply {
+                putExtra(UserDetail.EXTRA_user, data)
+            }
+        )
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_theme) {
-            isCurrentThemeDarkMode = !isCurrentThemeDarkMode
-            putDataTheme(isCurrentThemeDarkMode)
-            setAppTheme(isCurrentThemeDarkMode)
+        when (item.itemId) {
+            R.id.action_theme -> {
+                isCurrentThemeDarkMode = !isCurrentThemeDarkMode
+                putDataTheme(isCurrentThemeDarkMode)
+                setAppTheme(isCurrentThemeDarkMode)
+            }
+            R.id.action_following_followers -> {
+                toFollowingFollowersActivity("derysudrajat")
+            }
         }
         return super.onOptionsItemSelected(item)
     }
