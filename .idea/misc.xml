@@ -4,11 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.34270833333333334" />
+        <entry key="app/src/main/res/layout/activity_favorites.xml" value="0.30611372381359553" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.31614583333333335" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.44765195548916636" />
         <entry key="app/src/main/res/layout/activity_tab_with_view_pagger.xml" value="0.27978849113369764" />
         <entry key="app/src/main/res/layout/fragment_following_followers.xml" value="0.30611372381359553" />
-        <entry key="app/src/main/res/layout/item_avatar.xml" value="0.31614583333333335" />
+        <entry key="app/src/main/res/layout/fragment_sample_view_binding.xml" value="0.4494044342628143" />
+        <entry key="app/src/main/res/layout/item_avatar.xml" value="0.16974468565823736" />
         <entry key="app/src/main/res/layout/sample_constraint.xml" value="0.3506643558636626" />
         <entry key="app/src/main/res/layout/test_layout.xml" value="0.3347439167191558" />
         <entry key="app/src/main/res/layout/user_detail.xml" value="0.30448048909505215" />

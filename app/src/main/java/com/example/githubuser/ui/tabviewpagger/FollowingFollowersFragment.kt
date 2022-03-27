@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.githubuser.User
 import com.example.githubuser.databinding.FragmentFollowingFollowersBinding
-import com.example.githubuser.repo.network.service.ApiGithubConfig
-import com.example.githubuser.toListUser
 import com.example.githubuser.ui.home.ListUserAdapter
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FollowingFollowersFragment : Fragment() {
 
     private var _binding: FragmentFollowingFollowersBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: FollowingFollowersViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,24 +33,21 @@ class FollowingFollowersFragment : Fragment() {
         arguments?.apply {
             getInt("position").let { position ->
                 getString("username")?.let { username ->
-                    if (position == 0) getDataFollowing(username) else getDataFollowers(username)
+                    if (position == 0) viewModel.getDataFollowing(username)
+                    else viewModel.getDataFollowers(username)
                 }
             }
         }
 
+        viewModel.users.observe(viewLifecycleOwner) { populateData(it) }
+        viewModel.isLoading.observe(viewLifecycleOwner) { populateLoading(it) }
+
     }
 
-    private fun getDataFollowers(username: String) = lifecycleScope.launch {
-        ApiGithubConfig.getApiService().getFollowers(username).let {
-            populateData(it.toListUser())
-        }
+    private fun populateLoading(it: Boolean) {
+
     }
 
-    private fun getDataFollowing(username: String) = lifecycleScope.launch {
-        ApiGithubConfig.getApiService().getFollowing(username).let {
-            populateData(it.toListUser())
-        }
-    }
 
     private fun populateData(listUser: List<User>) {
         binding.rvFollowingFollowers.apply {

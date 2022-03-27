@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/img_Photo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -32,52 +32,20 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tv_item_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_toEndOf="@id/img_Photo"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.265"
-            card_view:layout_constraintStart_toEndOf="@+id/img_Photo"
-            card_view:layout_constraintTop_toTopOf="@+id/img_Photo"
-            tools:text="@string/detail_name" />
-
-        <TextView
             android:id="@+id/tv_item_Username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:maxLines="5"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             card_view:layout_constraintBottom_toBottomOf="@+id/img_Photo"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="1.0"
             card_view:layout_constraintStart_toEndOf="@+id/img_Photo"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name"
-            card_view:layout_constraintVertical_bias="0.069"
+            card_view:layout_constraintTop_toTopOf="@+id/img_Photo"
             tools:text="@string/detail_username" />
-
-        <TextView
-            android:id="@+id/tv_item_company"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="12dp"
-            android:ellipsize="end"
-            android:maxLines="5"
-            android:text="@string/company"
-            card_view:layout_constraintBottom_toBottomOf="@+id/img_Photo"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="1.0"
-            card_view:layout_constraintStart_toEndOf="@+id/img_Photo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

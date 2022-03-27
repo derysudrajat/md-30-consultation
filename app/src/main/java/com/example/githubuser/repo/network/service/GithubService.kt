@@ -9,25 +9,25 @@ import retrofit2.http.Query
 
 interface GithubService {
     @GET("search/users")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     suspend fun searchUserByUsername(
         @Query("q") username: String
     ): SearchGithubResponse
 
     @GET("users/{username}")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     suspend fun getDetailUser(
         @Path("username") username: String
     ): UserResponse
 
     @GET("users/{username}/followers")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     suspend fun getFollowers(
         @Path("username") username: String
     ): List<UserResponse>
 
     @GET("users/{username}/following")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     suspend fun getFollowing(
         @Path("username") username: String
     ): List<UserResponse>

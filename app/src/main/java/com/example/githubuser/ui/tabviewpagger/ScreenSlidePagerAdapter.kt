@@ -9,14 +9,10 @@ class ScreenSlidePagerAdapter(
     fa: FragmentActivity,
     private val username: String
 ) : FragmentStateAdapter(fa) {
-    private val listFragment = listOf(
-        FollowingFollowersFragment(),
-        FollowingFollowersFragment()
-    )
 
-    override fun getItemCount(): Int = listFragment.size
+    override fun getItemCount(): Int = 3
 
-    override fun createFragment(position: Int): Fragment = listFragment[position].apply {
+    override fun createFragment(position: Int): Fragment = FollowingFollowersFragment().apply {
         arguments = Bundle().apply {
             putString("username", username)
             putInt("position", position)

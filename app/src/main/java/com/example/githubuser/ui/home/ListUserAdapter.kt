@@ -34,8 +34,6 @@ class ListUserAdapter(
         with(binding) {
             Glide.with(imgPhoto.context).load(user.avatar).circleCrop().into(imgPhoto)
             tvItemUsername.text = user.username
-            tvItemName.text = user.name
-            tvItemCompany.text = user.company
             cardViewProfile.setOnClickListener {
                 onItemClickCallback.onItemClicked(user)
             }

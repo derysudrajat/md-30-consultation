@@ -4,18 +4,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.githubuser.User
-import com.example.githubuser.repo.network.service.ApiGithubConfig
-import com.example.githubuser.toUser
+import com.example.githubuser.repo.UserRepository
+import com.example.githubuser.toFavorite
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel : ViewModel() {
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val userRepository: UserRepository
+) : ViewModel() {
 
     private var _user = MutableLiveData<User>()
     val user get() = _user
+    private var _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite get() = _isFavorite
 
     fun getDetailUser(username: String) = viewModelScope.launch {
-        ApiGithubConfig.getApiService().getDetailUser(username).let {
-            _user.value = it.toUser()
+        userRepository.getDetailUser(username).collect { _user.value = it }
+    }
+
+    fun isFavorite(username: String) = viewModelScope.launch {
+        userRepository.isFavorite(username).collect {
+            _isFavorite.value = it
         }
+    }
+
+    fun addToFavorite(user: User) = viewModelScope.launch {
+        userRepository.addToFavorite(user.toFavorite())
+    }
+
+    fun removeFromFavorite(user: User) = viewModelScope.launch {
+        userRepository.deleteFromFavorite(user.toFavorite())
     }
 }
