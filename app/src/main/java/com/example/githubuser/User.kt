@@ -1,11 +1,13 @@
 package com.example.githubuser
 
 import android.os.Parcelable
+import com.example.githubuser.data.Favorites
 import com.example.githubuser.repo.network.response.UserResponse
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User(
+    var id: Int,
     var username: String,
     var name: String,
     var avatar: String,
@@ -16,6 +18,8 @@ data class User(
     var following: Int
 ) : Parcelable
 
+fun User.toFavorite() = Favorites(this.id, this.username, this.avatar)
+
 
 fun List<UserResponse>.toListUser(): MutableList<User> {
     val listUser = mutableListOf<User>()
@@ -25,6 +29,7 @@ fun List<UserResponse>.toListUser(): MutableList<User> {
 
 fun UserResponse.toUser(): User {
     return User(
+        id = this.id ?: 0,
         username = this.login ?: "",
         avatar = this.avatarUrl ?: "",
         name = this.name ?: "",

@@ -1,6 +1,5 @@
 package com.example.githubuser
 
-import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
@@ -11,6 +10,19 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val cities = listOf(
+            "Jeddah",
+            "Bengaluru",
+            "Shenzhen",
+            "Abu Dhabi",
+            "Mountain View",
+            "Tripoli",
+            "Bengaluru",
+            "Lima",
+            "Mandalay",
+            "Tripoli"
+        )
+        val oneWordCities = cities.toSet().toList().filter { !it.contains(" ") }.sorted()
+        println(oneWordCities[1])
     }
 }

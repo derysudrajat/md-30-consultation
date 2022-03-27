@@ -26,8 +26,6 @@ class UserAdapter(
         val user = listUser[position]
         with(binding) {
             Glide.with(binding.root.context).load(user.avatar).circleCrop().into(imgPhoto)
-            tvItemName.text = user.name
-            tvItemCompany.text = user.company
             tvItemUsername.text = user.username
         }
     }

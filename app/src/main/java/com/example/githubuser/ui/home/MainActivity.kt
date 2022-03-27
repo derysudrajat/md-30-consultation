@@ -1,6 +1,5 @@
 package com.example.githubuser.ui.home
 
-import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -10,30 +9,32 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuser.MovieViewModel
 import com.example.githubuser.R
 import com.example.githubuser.User
 import com.example.githubuser.databinding.ActivityMainBinding
+import com.example.githubuser.repo.local.LocalShared
 import com.example.githubuser.ui.detail.UserDetail
+import com.example.githubuser.ui.favorite.FavoritesActivity
 import com.example.githubuser.ui.tabviewpagger.TabWithViewPagerActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val movieViewModel: MovieViewModel by viewModels()
     private val mainViewModel: MainViewModel by viewModels()
     var isCurrentThemeDarkMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        isCurrentThemeDarkMode = getCurrentTheme()
+        getCurrentTheme()
         setAppTheme(isCurrentThemeDarkMode)
         setContentView(binding.root)
-        movieViewModel.getNowPlayingMovie()
         mainViewModel.getDataUserByUsername("dery")
         mainViewModel.user.observe(this) { showRecyclerList(it) }
     }
@@ -102,31 +103,28 @@ class MainActivity : AppCompatActivity() {
             R.id.action_theme -> {
                 isCurrentThemeDarkMode = !isCurrentThemeDarkMode
                 putDataTheme(isCurrentThemeDarkMode)
-                setAppTheme(isCurrentThemeDarkMode)
             }
             R.id.action_following_followers -> {
                 toFollowingFollowersActivity("derysudrajat")
+            }
+            R.id.action_favorite -> {
+                startActivity(Intent(this, FavoritesActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    companion object {
-        private const val THEME_ARG = "theme_arg"
-    }
-
     private fun putDataTheme(isDarkMode: Boolean) {
-        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-        with(sharedPref.edit()) {
-            putBoolean(THEME_ARG, isDarkMode)
-            apply()
-        }
+        lifecycleScope.launch { LocalShared.updateThemes(this@MainActivity, isDarkMode) }
     }
 
-    private fun getCurrentTheme(): Boolean {
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        val defaultValue = false
-        return sharedPref.getBoolean(THEME_ARG, defaultValue)
+    private fun getCurrentTheme() {
+        lifecycleScope.launch {
+            LocalShared.getThemes(this@MainActivity).collect {
+                isCurrentThemeDarkMode = it
+                setAppTheme(it)
+            }
+        }
     }
 
 }

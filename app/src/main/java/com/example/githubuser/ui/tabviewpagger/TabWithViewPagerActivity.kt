@@ -4,13 +4,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.githubuser.databinding.ActivityTabWithViewPaggerBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TabWithViewPagerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTabWithViewPaggerBinding
 
     companion object {
         private val TAB_TITLE = listOf(
-            "Following", "Followers"
+            "Following", "Followers", "Title ke 3"
         )
     }
 
