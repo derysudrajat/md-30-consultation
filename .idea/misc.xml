@@ -14,7 +14,11 @@
         <entry key="app/src/main/res/layout/sample_constraint.xml" value="0.3506643558636626" />
         <entry key="app/src/main/res/layout/test_layout.xml" value="0.3347439167191558" />
         <entry key="app/src/main/res/layout/user_detail.xml" value="0.30448048909505215" />
-        <entry key="app/src/main/res/menu/main_menu.xml" value="0.5603274315633852" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.29978790283203127" />
+        <entry key="storyapp/src/main/res/layout/activity_login.xml" value="0.35049238592297044" />
+        <entry key="storyapp/src/main/res/layout/activity_main.xml" value="0.30611372381359553" />
+        <entry key="storyapp/src/main/res/layout/activity_register.xml" value="0.30611372381359553" />
+        <entry key="storyapp/src/main/res/layout/layout_input_password.xml" value="0.30611372381359553" />
       </map>
     </option>
   </component>
