@@ -1,58 +1,34 @@
 package id.derysudrajat.storyapp.component
 
 import android.content.Context
-import android.graphics.Color
-import android.text.InputType
-import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
-import android.widget.LinearLayout
+import android.view.LayoutInflater
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import id.derysudrajat.storyapp.databinding.LayoutInputPasswordBinding
 
-class InputPassword : TextInputLayout {
-    private lateinit var editText: TextInputEditText
-    val isNotEmpty = MutableLiveData<Boolean>()
+class InputPassword @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    constructor(context: Context) : super(context) {
-        initializeView()
+    private val binding: LayoutInputPasswordBinding by lazy {
+        LayoutInputPasswordBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initializeView()
+    private val isNotEmpty = MutableLiveData<Boolean>()
+
+    fun isNotEmpty(onEvent: (isNotEmpty: Boolean) -> Unit) {
+        isNotEmpty.observe(context as LifecycleOwner) { onEvent(it) }
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
+    init {
         initializeView()
     }
-
 
     private fun initializeView() {
-        editText = TextInputEditText(context)
-        createEditBox(editText)
-        editText.doAfterTextChanged { showError(it.toString()) }
-    }
-
-    private fun createEditBox(editText: TextInputEditText) {
-        val layoutParams: LinearLayout.LayoutParams =
-            LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-
-        this.layoutParams = layoutParams
-        this.boxBackgroundMode = BOX_BACKGROUND_OUTLINE
-        this.hint = "Password"
-        this.boxBackgroundColor = Color.WHITE
-        this.setBoxCornerRadii(8f, 8f, 8f, 8f)
-
-        editText.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-        editText.transformationMethod = PasswordTransformationMethod()
-
-        editText.layoutParams = layoutParams
-        addView(editText)
+        binding.edtPassword.doAfterTextChanged { showError(it.toString()) }
     }
 
     private fun showError(text: String) {
@@ -71,11 +47,11 @@ class InputPassword : TextInputLayout {
     }
 
     private fun disableError() {
-        this.isErrorEnabled = false
+        binding.tilPassword.isErrorEnabled = false
     }
 
     private fun enableError(message: String) {
-        this.apply {
+        binding.tilPassword.apply {
             error = message
             isErrorEnabled = true
         }

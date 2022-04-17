@@ -28,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
                 isValid[1] = it?.isNotBlank() ?: false
                 validateButton()
             }
-            inputPassword.isNotEmpty.observe(this@RegisterActivity) {
+            inputPassword.isNotEmpty {
                 isValid[2] = it
                 validateButton()
             }

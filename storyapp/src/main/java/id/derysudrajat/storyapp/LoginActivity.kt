@@ -20,10 +20,11 @@ class LoginActivity : AppCompatActivity() {
             transformations(CircleCropTransformation())
         }
 
-        binding.inputPassword.isNotEmpty.observe(this) {
+        binding.inputPassword.isNotEmpty {
             isValid[1] = it
             validateButton()
         }
+
         binding.edtEmail.doAfterTextChanged {
             isValid[0] = it?.isNotBlank() ?: false
             validateButton()
@@ -34,6 +35,16 @@ class LoginActivity : AppCompatActivity() {
         binding.tvRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+        binding.edtCustomPassword.onValidateEditText(
+            activity = this,
+            hideError = { binding.tilCustomPassword.isErrorEnabled = false },
+            showError = {
+                binding.tilCustomPassword.apply {
+                    error = it
+                    isErrorEnabled = true
+                }
+            }
+        )
 
     }
 
