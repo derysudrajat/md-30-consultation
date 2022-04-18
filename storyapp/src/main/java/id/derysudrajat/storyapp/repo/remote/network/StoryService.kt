@@ -16,7 +16,7 @@ interface StoryService {
     suspend fun login(@Body loginBody: LoginBody): LoginResponse
 
     @POST("register")
-    suspend fun register(registerBody: RegisterBody): RegisterResponse
+    suspend fun register(@Body registerBody: RegisterBody): RegisterResponse
 
     @GET("stories")
     suspend fun getAllStory(
