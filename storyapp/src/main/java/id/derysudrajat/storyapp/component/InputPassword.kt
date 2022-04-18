@@ -19,6 +19,8 @@ class InputPassword @JvmOverloads constructor(
 
     private val isNotEmpty = MutableLiveData<Boolean>()
 
+    val text get() : String = binding.edtPassword.text.toString()
+
     fun isNotEmpty(onEvent: (isNotEmpty: Boolean) -> Unit) {
         isNotEmpty.observe(context as LifecycleOwner) { onEvent(it) }
     }

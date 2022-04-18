@@ -18,7 +18,10 @@
         <entry key="storyapp/src/main/res/layout/activity_login.xml" value="0.35049238592297044" />
         <entry key="storyapp/src/main/res/layout/activity_main.xml" value="0.30611372381359553" />
         <entry key="storyapp/src/main/res/layout/activity_register.xml" value="0.30611372381359553" />
+        <entry key="storyapp/src/main/res/layout/activity_splash.xml" value="0.30611372381359553" />
+        <entry key="storyapp/src/main/res/layout/item_story.xml" value="0.45460968017578146" />
         <entry key="storyapp/src/main/res/layout/layout_input_password.xml" value="0.30611372381359553" />
+        <entry key="storyapp/src/main/res/layout/layout_toolbar.xml" value="0.5819381713867189" />
       </map>
     </option>
   </component>

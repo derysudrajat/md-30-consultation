@@ -1,15 +1,22 @@
-package id.derysudrajat.storyapp
+package id.derysudrajat.storyapp.ui.register
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import coil.load
 import coil.transform.CircleCropTransformation
+import dagger.hilt.android.AndroidEntryPoint
 import id.derysudrajat.storyapp.databinding.ActivityRegisterBinding
+import id.derysudrajat.storyapp.repo.remote.body.RegisterBody
+import id.derysudrajat.storyapp.utils.DataHelpers
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private val viewModel: RegisterViewModel by viewModels()
     private val isValid = mutableListOf(false, false, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         with(binding) {
-            imageView.load("https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png") {
+            imageView.load(DataHelpers.authIcon) {
                 transformations(CircleCropTransformation())
             }
             edtName.doAfterTextChanged {
@@ -35,9 +42,20 @@ class RegisterActivity : AppCompatActivity() {
 
             tvRegister.setOnClickListener { finish() }
             btnRegister.setOnClickListener {
-                // register
+                viewModel.register(
+                    RegisterBody(
+                        inputPassword.text,
+                        edtName.text.toString(),
+                        edtEmail.text.toString()
+                    ), ::onRegistered
+                )
             }
         }
+    }
+
+    private fun onRegistered(isSuccess: Boolean, message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        if (isSuccess) finish()
     }
 
     private fun validateButton() {
