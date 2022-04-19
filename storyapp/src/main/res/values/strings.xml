@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">StoryApp</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="create_account">Not have account? create here</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_here">Already have account? login here</string>
+    <string name="name">Name</string>
+    <string name="must_not_empty">Must be not empty</string>
+    <string name="must_six_char">Password must be at least 6 char</string>
+    <string name="write_the_description">Write the description</string>
+    <string name="post">Post</string>
+    <string name="add_story">Add Story</string>
+    <string name="language">Language</string>
+    <string name="logout">Logout</string>
+    <string name="english">English</string>
+    <string name="permission_not_granted">Permission not granted</string>
+    <string name="choose_picture">Choose a Picture</string>
+    <string name="failed_take_picture">Failed to Take Picture</string>
+    <string name="failed_show_camera">Failed to show Camera</string>
+    <string name="settings">Settings</string>
+    <string name="welcome_messages">Hello, %1$s!</string>
+    <string name="login_failed">Login Failed, %1$s!</string>
+    <string name="register_success">Register Success, %1$s!</string>
+    <string name="register_failed">Register Failed, %1$s!</string>
+    <string name="email_not_valid">Email not valid</string>
+    <string name="email_must_not_empty">Email must be not empty</string>
+    <string name="name_must_not_empty">Name must be not empty</string>
 </resources>

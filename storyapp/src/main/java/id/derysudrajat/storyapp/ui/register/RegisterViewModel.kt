@@ -22,10 +22,10 @@ class RegisterViewModel @Inject constructor(
             when (it) {
                 is States.Loading -> {}
                 is States.Success -> {
-                    onRegistered(true, "Register Success: ${it.data}")
+                    onRegistered(true, it.data)
                 }
                 is States.Failed -> {
-                    onRegistered(false, "Register Failed: ${it.message}")
+                    onRegistered(false, it.message)
                 }
             }
         }

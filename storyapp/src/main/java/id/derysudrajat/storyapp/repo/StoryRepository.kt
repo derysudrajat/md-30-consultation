@@ -7,6 +7,8 @@ import id.derysudrajat.storyapp.repo.remote.RemoteDataSource
 import id.derysudrajat.storyapp.repo.remote.body.LoginBody
 import id.derysudrajat.storyapp.repo.remote.body.RegisterBody
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class StoryRepository @Inject constructor(
@@ -20,4 +22,9 @@ class StoryRepository @Inject constructor(
 
     override suspend fun getAllStory(token: String): Flow<States<List<Story>>> =
         remoteDataSource.getAllStory(token)
+
+    override suspend fun postNewStory(
+        token: String,
+        file: MultipartBody.Part, description: RequestBody
+    ): Flow<States<String>>  = remoteDataSource.postNewStory(token, file, description)
 }

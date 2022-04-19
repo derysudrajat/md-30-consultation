@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.transform.CircleCropTransformation
 import dagger.hilt.android.AndroidEntryPoint
+import id.derysudrajat.storyapp.R
 import id.derysudrajat.storyapp.data.model.LoginResult
 import id.derysudrajat.storyapp.databinding.ActivityLoginBinding
 import id.derysudrajat.storyapp.repo.local.LocalStore
@@ -36,12 +36,7 @@ class LoginActivity : AppCompatActivity() {
             transformations(CircleCropTransformation())
         }
 
-        binding.toolbar.setToolbar("Login")
-
-        binding.edtEmail.doAfterTextChanged {
-            isValid[0] = it?.isNotBlank() ?: false
-            validateButton()
-        }
+        binding.toolbar.setToolbar(getString(R.string.login))
 
         binding.edtPassword.onValidateEditText(
             activity = this,
@@ -59,6 +54,14 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         )
+        binding.edtEmail.validateEmail(this) {
+            isValid[0] = it.second
+            if (!it.second) binding.tilEmail.apply {
+                error = it.first
+                isErrorEnabled = true
+            } else binding.tilEmail.isErrorEnabled = false
+            validateButton()
+        }
 
         binding.btnLogin.setOnClickListener {
             viewModel.login(

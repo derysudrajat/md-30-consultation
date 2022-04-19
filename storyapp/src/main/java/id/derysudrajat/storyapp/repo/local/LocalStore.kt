@@ -26,5 +26,4 @@ class LocalStore constructor(private val context: Context) {
         context.userStore.edit { it[USER_ID_KEY] = loginResult.userId }
         context.userStore.edit { it[NAME_KEY] = loginResult.name }
     }
-
 }

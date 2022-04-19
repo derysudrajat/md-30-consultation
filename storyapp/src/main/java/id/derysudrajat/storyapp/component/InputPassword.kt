@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import id.derysudrajat.storyapp.R
 import id.derysudrajat.storyapp.databinding.LayoutInputPasswordBinding
 
 class InputPassword @JvmOverloads constructor(
@@ -35,11 +36,11 @@ class InputPassword @JvmOverloads constructor(
 
     private fun showError(text: String) {
         isNotEmpty.value = if (text.isBlank()) {
-            enableError("Password must be not empty")
+            enableError(context.getString(R.string.must_not_empty))
             false
         } else {
             if (text.length < 6) {
-                enableError("Password must be at least 6 char")
+                enableError(context.getString(R.string.must_six_char))
                 false
             } else {
                 disableError()

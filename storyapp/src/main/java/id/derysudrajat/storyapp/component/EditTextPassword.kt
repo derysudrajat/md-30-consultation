@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import id.derysudrajat.storyapp.R
 
 class EditTextPassword : AppCompatEditText {
     constructor(context: Context) : super(context) {
@@ -41,14 +42,12 @@ class EditTextPassword : AppCompatEditText {
 
 
     private fun initializeView() {
-        hint = "Password"
+        hint = context.getString(R.string.password)
         inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         transformationMethod = PasswordTransformationMethod()
         doAfterTextChanged {
-            if (it?.isBlank() == true) showError("Must be not empty") else {
-                if ((it?.length
-                        ?: 0) < 6
-                ) showError("Password must be at least 6 char") else hideError()
+            if (it?.isBlank() == true) showError(context.getString(R.string.must_not_empty)) else {
+                if ((it?.length ?: 0) < 6) showError(context.getString(R.string.must_six_char)) else hideError()
             }
         }
     }

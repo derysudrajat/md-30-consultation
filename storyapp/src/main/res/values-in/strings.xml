@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
+    <string name="create_account">Belum punya akun? buat di sini</string>
+    <string name="email">Alamat Surel</string>
+    <string name="password">Kata Sandi</string>
+    <string name="login_here">Sudah punya akun? masuk di sini</string>
+    <string name="name">Nama</string>
+    <string name="must_not_empty">Tidak boleh kosong</string>
+    <string name="must_six_char">Kata sandi setidaknya harus 6 karakter</string>
+    <string name="write_the_description">Tulis deskripsi di sini</string>
+    <string name="post">Posting</string>
+    <string name="add_story">Tambah Cerita</string>
+    <string name="language">Bahasa</string>
+    <string name="logout">Keluar</string>
+    <string name="english">Indonesia</string>
+    <string name="permission_not_granted">Tidak mendapatkan permission.</string>
+    <string name="choose_picture">Pilih Gambar</string>
+    <string name="failed_take_picture">Gagal mengambil gambar.</string>
+    <string name="failed_show_camera">Gagal memunculkan kamera.</string>
+    <string name="settings">Pengaturan</string>
+    <string name="welcome_messages">Selamat Datang, %1$s!</string>
+    <string name="login_failed">Gagal masuk, %1$s!</string>
+    <string name="register_success">Berhasil Terdaftar, %1$s!</string>
+    <string name="register_failed">Gagal Mendaftar, %1$s!</string>
+    <string name="email_not_valid">Alamat Surel tidak valid</string>
+    <string name="email_must_not_empty">Alamat Surel tidak boleh kosong</string>
+    <string name="name_must_not_empty">Nama tidak boleh kosong</string>
+</resources>

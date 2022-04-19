@@ -8,6 +8,7 @@ import androidx.core.widget.doAfterTextChanged
 import coil.load
 import coil.transform.CircleCropTransformation
 import dagger.hilt.android.AndroidEntryPoint
+import id.derysudrajat.storyapp.R
 import id.derysudrajat.storyapp.databinding.ActivityRegisterBinding
 import id.derysudrajat.storyapp.repo.remote.body.RegisterBody
 import id.derysudrajat.storyapp.utils.DataHelpers
@@ -24,15 +25,25 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         with(binding) {
+            toolbar.setToolbar(getString(R.string.register))
             imageView.load(DataHelpers.authIcon) {
                 transformations(CircleCropTransformation())
             }
             edtName.doAfterTextChanged {
-                isValid[0] = it?.isNotBlank() ?: false
+                val nameValid = it?.isNotBlank() ?: false
+                isValid[0] = nameValid
+                tilName.apply {
+                    if (!nameValid) error = context.getString(R.string.name_must_not_empty)
+                    isErrorEnabled = !nameValid
+                }
                 validateButton()
             }
-            edtEmail.doAfterTextChanged {
-                isValid[1] = it?.isNotBlank() ?: false
+            edtEmail.validateEmail(this@RegisterActivity) {
+                isValid[1] = it.second
+                if (!it.second) binding.tilEmail.apply {
+                    error = it.first
+                    isErrorEnabled = true
+                } else binding.tilEmail.isErrorEnabled = false
                 validateButton()
             }
             inputPassword.isNotEmpty {
@@ -54,7 +65,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun onRegistered(isSuccess: Boolean, message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            this, getString(
+                if (isSuccess) R.string.register_success else R.string.register_failed, message
+            ), Toast.LENGTH_SHORT
+        ).show()
         if (isSuccess) finish()
     }
 

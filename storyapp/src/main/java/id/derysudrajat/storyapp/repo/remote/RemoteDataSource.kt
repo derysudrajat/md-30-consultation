@@ -13,6 +13,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(private val storyService: StoryService) {
@@ -57,4 +59,18 @@ class RemoteDataSource @Inject constructor(private val storyService: StoryServic
         Log.d(TAG, "getAllStory: failed = ${it.message}")
         emit(States.failed(it.message ?: ""))
     }.flowOn(Dispatchers.IO)
+
+    suspend fun postNewStory(token: String, file: MultipartBody.Part, description: RequestBody) =
+        flow<States<String>> {
+            emit(States.loading())
+            val response = storyService.postNewStory(token, file, description)
+            response.let {
+                if (it.error != true) emit(States.success(it.message ?: ""))
+                else emit(States.failed(it.message ?: ""))
+            }
+        }.catch {
+            Log.d(TAG, "postNewStory: failed = ${it.message}")
+            emit(States.failed(it.message ?: ""))
+        }.flowOn(Dispatchers.IO)
+
 }
