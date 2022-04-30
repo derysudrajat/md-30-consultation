@@ -9,14 +9,16 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import id.derysudrajat.storyapp.R
+import id.derysudrajat.storyapp.component.LoadingView
 import id.derysudrajat.storyapp.databinding.ActivityRegisterBinding
 import id.derysudrajat.storyapp.repo.remote.body.RegisterBody
-import id.derysudrajat.storyapp.utils.DataHelpers
+import id.derysudrajat.storyapp.utils.ViewUtils
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var loadingView: LoadingView
     private val viewModel: RegisterViewModel by viewModels()
     private val isValid = mutableListOf(false, false, false)
 
@@ -24,9 +26,10 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        loadingView = LoadingView.create(this)
         with(binding) {
             toolbar.setToolbar(getString(R.string.register))
-            imageView.load(DataHelpers.authIcon) {
+            imageView.load(ViewUtils.authIcon) {
                 transformations(CircleCropTransformation())
             }
             edtName.doAfterTextChanged {
@@ -62,6 +65,11 @@ class RegisterActivity : AppCompatActivity() {
                 )
             }
         }
+        viewModel.isLoading.observe(this, ::populateLoading)
+    }
+
+    private fun populateLoading(isLoading: Boolean) {
+        if (isLoading) loadingView.showLoading(getString(R.string.create_an_account)) else loadingView.dismissLoading()
     }
 
     private fun onRegistered(isSuccess: Boolean, message: String) {

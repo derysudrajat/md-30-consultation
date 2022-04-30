@@ -14,7 +14,7 @@ import id.derysudrajat.storyapp.data.model.LoginResult
 import id.derysudrajat.storyapp.databinding.ActivitySettingsBinding
 import id.derysudrajat.storyapp.repo.local.LocalStore
 import id.derysudrajat.storyapp.ui.login.LoginActivity
-import id.derysudrajat.storyapp.utils.DataHelpers
+import id.derysudrajat.storyapp.utils.ViewUtils
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         lifecycleScope.launch {
             localStore.getUserLoginResult().collect {
-                binding.ivAvatar.load(DataHelpers.authIcon) {
+                binding.ivAvatar.load(ViewUtils.authIcon) {
                     crossfade(true)
                     transformations(CircleCropTransformation())
                 }

@@ -28,4 +28,11 @@
     <string name="email_not_valid">Alamat Surel tidak valid</string>
     <string name="email_must_not_empty">Alamat Surel tidak boleh kosong</string>
     <string name="name_must_not_empty">Nama tidak boleh kosong</string>
+    <string name="try_to_login">Mencoba Masuk</string>
+    <string name="create_an_account">Membuat Akun</string>
+    <string name="create_story">Membuat Cerita</string>
+    <string name="take_picture">Ambil Gambar</string>
+    <string name="app_widget_description">Ini adalah dekripsi widget</string>
+    <string name="no_data">Tidak ada data</string>
+    <string name="maps">Peta</string>
 </resources>

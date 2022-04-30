@@ -19,7 +19,10 @@ interface StoryService {
 
     @GET("stories")
     suspend fun getAllStory(
-        @Header("Authorization") header: String
+        @Header("Authorization") header: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("location") location: Int = 1
     ): DataStoryResponse
 
     @Multipart
@@ -28,5 +31,7 @@ interface StoryService {
         @Header("Authorization") header: String,
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
+        @Part("lat") lat: Double,
+        @Part("lon") lon: Double,
     ): RegisterResponse
 }

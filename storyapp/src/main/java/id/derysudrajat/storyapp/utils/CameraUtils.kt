@@ -3,34 +3,18 @@ package id.derysudrajat.storyapp.utils
 import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
-import android.content.res.Configuration.UI_MODE_NIGHT_MASK
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
-import android.text.format.DateFormat
+import android.util.Log
 import id.derysudrajat.storyapp.R
-import id.derysudrajat.storyapp.data.model.LoginResult
 import java.io.*
-import java.text.SimpleDateFormat
-import java.util.*
+import java.net.HttpURLConnection
+import java.net.URL
 
-object DataHelpers {
-
-    const val authIcon =
-        "https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png"
-    val LoginResult.tokenBearer: String get() = "Bearer ${this.token}"
-
-    val Context.isDarkMode get() = this.resources?.configuration?.uiMode?.and(UI_MODE_NIGHT_MASK) == UI_MODE_NIGHT_YES
-
-    val String.simpleTime
-        get() : String {
-            val apiFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val date = apiFormat.parse(this.split("T").first())
-            return DateFormat.format("EEEE, dd MMMM yyy", date).toString()
-        }
+object CameraUtils {
 
     fun createFile(application: Application): File {
         val mediaDir = application.externalMediaDirs.firstOrNull()?.let {
@@ -41,7 +25,7 @@ object DataHelpers {
             mediaDir != null && mediaDir.exists()
         ) mediaDir else application.filesDir
 
-        return File(outputDirectory, "$timeStamp.jpg")
+        return File(outputDirectory, "${TimeUtils.timeStamp}.jpg")
     }
 
     fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
@@ -56,16 +40,10 @@ object DataHelpers {
         }
     }
 
-    private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 
-    val timeStamp: String = SimpleDateFormat(
-        FILENAME_FORMAT,
-        Locale.US
-    ).format(System.currentTimeMillis())
-
-    fun createCustomTempFile(context: Context): File {
+    private fun createCustomTempFile(context: Context): File {
         val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(timeStamp, ".jpg", storageDir)
+        return File.createTempFile(TimeUtils.timeStamp, ".jpg", storageDir)
     }
 
     fun uriToFile(selectedImg: Uri, context: Context): File {
@@ -83,23 +61,37 @@ object DataHelpers {
         return myFile
     }
 
-    fun reduceFileImage(file: File): File {
+    fun reduceFileImage(file: File, isBackCamera: Boolean, isPickFromCamera: Int): File {
         val bitmap = BitmapFactory.decodeFile(file.path)
+        val result = if (isPickFromCamera == 1) rotateBitmap(bitmap, isBackCamera) else bitmap
 
         var compressQuality = 100
         var streamLength: Int
 
         do {
             val bmpStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
+            result.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
             val bmpPicByteArray = bmpStream.toByteArray()
             streamLength = bmpPicByteArray.size
             compressQuality -= 5
         } while (streamLength > 1000000)
 
-        bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
+        result.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
 
         return file
     }
 
+    fun String.getBitmapFromURL(): Bitmap? {
+        return try {
+            val url = URL(this)
+            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
+            val input: InputStream = connection.inputStream
+            BitmapFactory.decodeStream(input)
+        } catch (e: IOException) {
+            Log.d("Helpers", "getBitmapFromURL: error= ${e.message}")
+            null
+        }
+    }
 }

@@ -15,17 +15,27 @@
         <entry key="app/src/main/res/layout/test_layout.xml" value="0.3347439167191558" />
         <entry key="app/src/main/res/layout/user_detail.xml" value="0.30448048909505215" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.29978790283203127" />
-        <entry key="storyapp/src/main/res/layout/activity_add_story.xml" value="0.43920859004674334" />
+        <entry key="storyapp/src/main/res/drawable-v21/app_widget_background.xml" value="0.193" />
+        <entry key="storyapp/src/main/res/drawable/ic_pin.xml" value="0.218" />
+        <entry key="storyapp/src/main/res/layout/activity_add_story.xml" value="0.242279052734375" />
         <entry key="storyapp/src/main/res/layout/activity_camera.xml" value="0.294570329200513" />
         <entry key="storyapp/src/main/res/layout/activity_detail.xml" value="0.28499861150890804" />
         <entry key="storyapp/src/main/res/layout/activity_login.xml" value="0.35049238592297044" />
         <entry key="storyapp/src/main/res/layout/activity_main.xml" value="0.30611372381359553" />
         <entry key="storyapp/src/main/res/layout/activity_register.xml" value="0.30611372381359553" />
+        <entry key="storyapp/src/main/res/layout/activity_search_maps.xml" value="0.29317274480968936" />
         <entry key="storyapp/src/main/res/layout/activity_settings.xml" value="0.30611372381359553" />
         <entry key="storyapp/src/main/res/layout/activity_splash.xml" value="0.30611372381359553" />
+        <entry key="storyapp/src/main/res/layout/activity_story_maps.xml" value="0.30611372381359553" />
+        <entry key="storyapp/src/main/res/layout/fragment_maps.xml" value="0.294570329200513" />
+        <entry key="storyapp/src/main/res/layout/item_loading.xml" value="0.30611372381359553" />
         <entry key="storyapp/src/main/res/layout/item_story.xml" value="0.45460968017578146" />
+        <entry key="storyapp/src/main/res/layout/item_story_map.xml" value="0.407663724739054" />
+        <entry key="storyapp/src/main/res/layout/item_widget.xml" value="0.3890401811742071" />
+        <entry key="storyapp/src/main/res/layout/layout_dialog.xml" value="0.30611372381359553" />
         <entry key="storyapp/src/main/res/layout/layout_input_password.xml" value="0.30611372381359553" />
         <entry key="storyapp/src/main/res/layout/layout_toolbar.xml" value="0.4537482086723372" />
+        <entry key="storyapp/src/main/res/layout/story_widget.xml" value="0.30223723089911353" />
         <entry key="storyapp/src/main/res/menu/main_menu.xml" value="0.30611372381359553" />
       </map>
     </option>

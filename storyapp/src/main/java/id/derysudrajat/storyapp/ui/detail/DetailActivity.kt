@@ -9,7 +9,7 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import id.derysudrajat.storyapp.data.model.Story
 import id.derysudrajat.storyapp.databinding.ActivityDetailBinding
-import id.derysudrajat.storyapp.utils.DataHelpers.simpleTime
+import id.derysudrajat.storyapp.utils.TimeUtils.simpleTime
 import java.util.*
 
 class DetailActivity : AppCompatActivity() {

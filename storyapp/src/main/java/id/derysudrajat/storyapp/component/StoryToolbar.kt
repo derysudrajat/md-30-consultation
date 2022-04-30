@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import id.derysudrajat.storyapp.R
 import id.derysudrajat.storyapp.databinding.LayoutToolbarBinding
-import id.derysudrajat.storyapp.utils.DataHelpers.isDarkMode
+import id.derysudrajat.storyapp.utils.ViewUtils.isDarkMode
 
 class StoryToolbar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

@@ -3,9 +3,12 @@ package id.derysudrajat.storyapp.ui.base
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import id.derysudrajat.storyapp.data.model.Story
@@ -13,9 +16,8 @@ import id.derysudrajat.storyapp.databinding.ItemStoryBinding
 import id.derysudrajat.storyapp.ui.detail.DetailActivity
 
 class StoryAdapter(
-    private val context: Context,
-    private val stories: List<Story>
-) : RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
+    private val context: Context
+) : PagingDataAdapter<Story, StoryAdapter.ViewHolder>(DIFF_CALLBACK)  {
 
     class ViewHolder(private val binding: ItemStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -48,9 +50,20 @@ class StoryAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(context, stories[position])
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
     }
 
-    override fun getItemCount(): Int = stories.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("TAG", "onBindViewHolder: data = ${getItem(position)}")
+        getItem(position)?.let { holder.bind(context, it) }
+    }
 }

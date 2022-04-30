@@ -27,4 +27,13 @@
     <string name="email_not_valid">Email not valid</string>
     <string name="email_must_not_empty">Email must be not empty</string>
     <string name="name_must_not_empty">Name must be not empty</string>
+    <string name="try_to_login">Login In</string>
+    <string name="create_an_account">Create Account</string>
+    <string name="create_story">Create Story</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="no_data">No Data</string>
+    <string name="title_activity_story_maps">StoryMapsActivity</string>
+    <string name="maps">Maps</string>
+    <string name="title_activity_search_maps">SearchMapsActivity</string>
 </resources>

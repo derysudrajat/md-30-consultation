@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat
 import id.derysudrajat.storyapp.R
 import id.derysudrajat.storyapp.databinding.ActivityCameraBinding
 import id.derysudrajat.storyapp.ui.add.AddStoryActivity
-import id.derysudrajat.storyapp.utils.DataHelpers.createFile
+import id.derysudrajat.storyapp.utils.CameraUtils.createFile
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -33,6 +33,8 @@ class CameraActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.toolbar.setToolbar(getString(R.string.take_picture))
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 

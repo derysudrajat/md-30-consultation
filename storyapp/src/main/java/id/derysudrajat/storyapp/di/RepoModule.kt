@@ -10,7 +10,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import id.derysudrajat.storyapp.repo.StoryRepository
+import id.derysudrajat.storyapp.repo.local.LocalDataSource
 import id.derysudrajat.storyapp.repo.local.LocalStore
+import id.derysudrajat.storyapp.repo.local.room.StoryDao
+import id.derysudrajat.storyapp.repo.local.room.StoryDatabase
 import id.derysudrajat.storyapp.repo.remote.RemoteDataSource
 import id.derysudrajat.storyapp.repo.remote.network.StoryService
 import okhttp3.OkHttpClient
@@ -48,9 +51,19 @@ object RepoModule {
     fun provideRemoteDataSource(service: StoryService): RemoteDataSource = RemoteDataSource(service)
 
     @Provides
+    fun provideStoryDatabase(@ApplicationContext context: Context): StoryDatabase = StoryDatabase.getInstance(context)
+
+    @Provides
+    fun provideStoryDao(database: StoryDatabase): StoryDao = database.storyDao()
+
+    @Provides
+    fun provideLocalDataSource(storyDao: StoryDao): LocalDataSource = LocalDataSource(storyDao)
+
+    @Provides
     fun provideStoryRepository(
         remoteDataSource: RemoteDataSource,
-    ): StoryRepository = StoryRepository(remoteDataSource)
+        localDataSource: LocalDataSource
+    ): StoryRepository = StoryRepository(remoteDataSource, localDataSource)
 
     val Context.userStore: DataStore<Preferences> by preferencesDataStore(name = "user")
 

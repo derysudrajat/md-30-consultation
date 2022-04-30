@@ -12,7 +12,7 @@ import id.derysudrajat.storyapp.databinding.ActivitySplashBinding
 import id.derysudrajat.storyapp.repo.local.LocalStore
 import id.derysudrajat.storyapp.ui.base.MainActivity
 import id.derysudrajat.storyapp.ui.login.LoginActivity
-import id.derysudrajat.storyapp.utils.DataHelpers.isDarkMode
+import id.derysudrajat.storyapp.utils.ViewUtils.isDarkMode
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -9,13 +9,14 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import id.derysudrajat.storyapp.R
+import id.derysudrajat.storyapp.component.LoadingView
 import id.derysudrajat.storyapp.data.model.LoginResult
 import id.derysudrajat.storyapp.databinding.ActivityLoginBinding
 import id.derysudrajat.storyapp.repo.local.LocalStore
 import id.derysudrajat.storyapp.repo.remote.body.LoginBody
 import id.derysudrajat.storyapp.ui.base.MainActivity
 import id.derysudrajat.storyapp.ui.register.RegisterActivity
-import id.derysudrajat.storyapp.utils.DataHelpers
+import id.derysudrajat.storyapp.utils.ViewUtils
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,12 +28,14 @@ class LoginActivity : AppCompatActivity() {
     @Inject
     lateinit var localStore: LocalStore
     private val isValid = mutableListOf(false, false)
+    private lateinit var loadingView: LoadingView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.imageView.load(DataHelpers.authIcon) {
+        loadingView = LoadingView.create(this)
+        binding.imageView.load(ViewUtils.authIcon) {
             transformations(CircleCropTransformation())
         }
 
@@ -75,12 +78,22 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
+        viewModel.isLoading.observe(this, ::populateLoading)
+
+    }
+
+    private fun populateLoading(isLoading: Boolean) {
+        if (isLoading) loadingView.showLoading(getString(R.string.try_to_login)) else loadingView.dismissLoading()
     }
 
     private fun putLoginResult(loginResult: LoginResult) {
-        lifecycleScope.launch { localStore.putLoginResult(loginResult) }
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
+        lifecycleScope.launch {
+            localStore.putLoginResult(loginResult).also {
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
+            }
+        }
+
     }
 
     private fun validateButton() {
